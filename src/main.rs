@@ -13,5 +13,17 @@ async fn main() -> Result<()> {
     let client = Client::try_from_json(&args.credentials_json)?;
     println!("{:?}", client);
 
+    let token = client.fetch_access_token().await?;
+
+    println!("token: {}", token);
+
+    //
+    let lamin: f64 = 0.0;
+    let lamax: f64 = 90.0;
+
+    let state = client.get_state(lamin, lamax).await?;
+
+    println!("{:?}", state);
+
     Ok(())
 }
